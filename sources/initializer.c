@@ -12,6 +12,7 @@
 #include		<stdlib.h>
 #include		<string.h>
 #include		<stdio.h>
+#include		<netdb.h>
 #include		"server.h"
 
 int			initializer_server(t_serv *server)
@@ -21,7 +22,7 @@ int			initializer_server(t_serv *server)
   server->serv.sin_family = AF_INET;
   server->serv.sin_addr.s_addr = htonl(INADDR_ANY);
   server->serv.sin_port = htons((uint16_t)server->port);
-  server->mysocket = socket(AF_INET, SOCK_STREAM, 0);
+  server->mysocket = socket(AF_INET, SOCK_STREAM, getprotobyname("TCP")->p_proto);
   if (server->mysocket == -1)
     return (-1);
   if (bind(server->mysocket, (struct sockaddr *)&server->serv, sizeof(struct sockaddr)))

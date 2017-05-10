@@ -8,32 +8,49 @@
 ** Last update Tue May 09 08:28:14 2017 Maxime PILLON
 */
 
-#include		<stdio.h>
-#include		<stdlib.h>
-#include		"server.h"
+#include                <stdio.h>
+#include                <unistd.h>
+#include                <stdlib.h>
+#include                "server.h"
 
 int			launch_server(t_serv *serv)
 {
-  int			value;
+  int value;
 
   value = 1;
   if (initializer_server(serv))
     return (-1);
- while (value)
- {
-   value = accept(serv->mysocket,
-		  (struct sockaddr *)&(serv->dest), &(serv->socksize));
-   if (initialize_process(value, serv))
-     return (-1);
- }
+  if (chdir(serv->pathname))
+    return throw_error("can't move to the wanted directory");
+  while (value) {
+    value = accept(serv->mysocket,
+		   (struct sockaddr *) &(serv->dest), &(serv->socksize));
+    if (initialize_process(value, serv))
+      return (-1);
+  }
+  close(serv->mysocket);
+}
+
+static int		exec_command(int consocket, t_child *child)
+{
 }
 
 int			child_exec(int consocket)
 {
-  while			(consocket)
+  t_child		*child;
+
+  child = malloc(sizeof(t_child));
+  if (child == NULL)
+    return throw_child_error(consocket);
+  write(consocket, "220\r\n", 5);
+  while (consocket)
   {
-    printf("recieve the connection : %d\n", consocket);
+    if (read_command(consocket, child))
+      return throw_child_error(consocket);
+    if (exec_command(consocket, child))
+      return throw_child_error(consocket);
   }
+  return (0);
 }
 
 

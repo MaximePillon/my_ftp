@@ -9,11 +9,18 @@
 */
 
 #include	<stdio.h>
+#include	<unistd.h>
 #include	"server.h"
 
 int		throw_error(char *error)
 {
   if (error)
     printf("%s\n", error);
+  return (-1);
+}
+
+int		throw_child_error(int consocket)
+{
+  close(consocket);
   return (-1);
 }

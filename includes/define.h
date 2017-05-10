@@ -16,6 +16,8 @@
 # include		<netinet/in.h>
 # include		<sys/socket.h>
 
+typedef struct s_func	t_func;
+
 typedef struct		s_serv
 {
   char			*pathname;
@@ -30,7 +32,19 @@ typedef struct		s_serv
 
 typedef struct	s_child
 {
-
+  char		*username;
+  char		*password;
+  char		*command;
 }		t_child;
+
+typedef struct	s_func
+{
+  const char	*keyword;
+  int		(*funcptr)(int, t_child *);
+}		t_func;
+
+#ifndef		READ_SIZE
+# define	READ_SIZE	(256)
+#endif		/* !READ_SIZE */
 
 #endif /* !PSU_2016_MYFTP_FUNCTION_DEFINE_H */

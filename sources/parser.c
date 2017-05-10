@@ -8,8 +8,10 @@
 ** Last update Tue May 09 07:54:04 2017 Maxime PILLON
 */
 
+#include		<stdio.h>
 #include		<stdlib.h>
 #include		<string.h>
+#include		<unistd.h>
 #include		"server.h"
 
 int			param_parsing(int ac, char **av, t_serv *serv)
@@ -19,6 +21,19 @@ int			param_parsing(int ac, char **av, t_serv *serv)
   serv->port = (int)strtol(av[1], NULL, 10);
   serv->pathname = strdup(av[2]);
   if (!serv->pathname)
+    return (-1);
+  return (0);
+}
+
+int			read_command(int consocket, t_child *child)
+{
+  size_t		len;
+  ssize_t		tmp;
+
+  len = 0;
+  child->command = NULL;
+  child->command = get_next_line(consocket);
+  if (!child->command)
     return (-1);
   return (0);
 }
