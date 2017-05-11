@@ -48,3 +48,16 @@ int			initialize_process(int value, t_serv *serv)
     child_exec(value);
   return (0);
 }
+
+t_child			*initialize_child()
+{
+  t_child		*child;
+
+  child = malloc(sizeof(t_child));
+  if (child == NULL)
+    return (NULL);
+  child->username = NULL;
+  child->password = NULL;
+  child->command = NULL;
+  return (child);
+}

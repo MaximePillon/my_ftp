@@ -11,6 +11,7 @@
 #include                <stdio.h>
 #include                <unistd.h>
 #include                <stdlib.h>
+#include		<string.h>
 #include                "server.h"
 
 int			launch_server(t_serv *serv)
@@ -33,13 +34,22 @@ int			launch_server(t_serv *serv)
 
 static int		exec_command(int consocket, t_child *child)
 {
+  int			cpt;
+
+  cpt = 0;
+  while (cpt != 19 &&
+    strncmp(g_func_tab[cpt].keyword,
+	    child->command, strlen(g_func_tab[cpt].keyword)) != 0)
+    ++cpt;
+  return (g_func_tab[cpt].funcptr(consocket, child));
+
 }
 
 int			child_exec(int consocket)
 {
   t_child		*child;
 
-  child = malloc(sizeof(t_child));
+  child = initialize_child();
   if (child == NULL)
     return throw_child_error(consocket);
   write(consocket, "220\r\n", 5);

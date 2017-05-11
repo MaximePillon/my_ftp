@@ -47,4 +47,8 @@ typedef struct	s_func
 # define	READ_SIZE	(256)
 #endif		/* !READ_SIZE */
 
+#ifndef		MAX_CONNECTION
+# define	MAX_CONNECTION	(42)
+#endif		/* !MAX_CONNECTION */
+
 #endif /* !PSU_2016_MYFTP_FUNCTION_DEFINE_H */

@@ -11,6 +11,7 @@
 #ifndef PSU_2016_MYFTP_SERVER_H
 # define PSU_2016_MYFTP_SERVER_H
 
+# include	<stdbool.h>
 # include	"define.h"
 
 /*
@@ -31,6 +32,7 @@ int			throw_child_error(int consocket);
 */
 int			launch_server(t_serv *serv);
 int			child_exec(int consocket);
+void			respond(char *code, char *string, int consocket);
 
 /*
 ** initializer function
@@ -38,6 +40,13 @@ int			child_exec(int consocket);
 int			initializer_server(t_serv *server);
 int			initialize_process(int value, t_serv *server);
 void			initialize_func_tab(t_child *child);
+t_child			*initialize_child();
+
+/*
+** Authentication & right function
+*/
+bool		is_authenticated(t_child *child);
+bool		has_username(t_child *child);
 
 /*
 ** Execution function
@@ -63,7 +72,14 @@ int			pwd(int consocket, t_child *child);  //todo
 int			syst(int consocket, t_child *child); //todo
 int			sys_error(int consocket, t_child *child); //todo
 
+/*
+** Global variable server, used to handle SIGINT, SIGPIP...
+*/
 extern t_serv		*g_serv;
+
+/*
+** Constant configuration tab, used for execution
+*/
 extern const t_func	g_func_tab[];
 
 #endif /* !PSU_2016_MYFTP_SERVER_H */
