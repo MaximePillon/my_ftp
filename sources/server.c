@@ -79,6 +79,7 @@ int			child_exec(int consocket)
     if (read_command(consocket, child))
       return throw_child_error(consocket);
     tmp = exec_command(consocket, child);
+    free(child->command);
     if (tmp == -1)
       return throw_child_error(consocket);
     if (tmp == 1)
