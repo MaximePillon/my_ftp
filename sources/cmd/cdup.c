@@ -8,9 +8,19 @@
 ** Last update Wed May 10 14:26:30 2017 Maxime PILLON
 */
 
+#include		<unistd.h>
 #include		"server.h"
 
 int			cdup(int consocket, t_child *child)
 {
+  if (!is_authenticated(child))
+  {
+    respond("530", "Not logged in.", consocket);
+    return (0);
+  }
+  if (!chdir(".."))
+    respond("250", "Requested file action okay, completed.", consocket);
+  else
+    respond("550", "Requested action not taken.", consocket);
   return (0);
 }
