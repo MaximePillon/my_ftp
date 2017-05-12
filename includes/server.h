@@ -82,4 +82,9 @@ extern t_serv		*g_serv;
 */
 extern const t_func	g_func_tab[];
 
+/*
+** Global variable child, used to handle SIGINT, SIGPIP...
+*/
+extern int		g_child_consocket;
+
 #endif /* !PSU_2016_MYFTP_SERVER_H */

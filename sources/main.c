@@ -17,19 +17,19 @@ t_serv			*g_serv;
 
 static void		signalHandler(int signum)
 {
-  int			value;
+  int			cpt;
 
-  value = (int)g_serv->nb_connections;
-  while (value - 1 >= 0)
+  cpt = 0;
+  while (cpt < MAX_CONNECTION)
   {
-    if (g_serv->child[value - 1] != 0)
-      kill(g_serv->child[value -1], SIGKILL);
-    value--;
+   if (g_serv->child[cpt] != 0)
+     kill(g_serv->child[cpt], SIGINT);
+    ++cpt;
   }
   exit(signum);
 }
 
-static void		callSignal()
+static void		call_signal()
 {
   signal(SIGINT, signalHandler);
   signal(SIGABRT, signalHandler);
@@ -40,7 +40,7 @@ static void		callSignal()
 
 int			main(int ac, char **av)
 {
-  callSignal();
+  call_signal();
   g_serv = malloc(sizeof(t_serv));
   if (!g_serv)
     return (throw_error("Can't allocate data"));

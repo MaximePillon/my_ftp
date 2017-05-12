@@ -8,11 +8,20 @@
 ** Last update Tue May 09 08:28:14 2017 Maxime PILLON
 */
 
+#include		<signal.h>
 #include                <stdio.h>
 #include                <unistd.h>
 #include                <stdlib.h>
 #include		<string.h>
 #include                "server.h"
+
+int			g_child_consocket;
+
+static void		signalHandler(int signum)
+{
+  close(g_child_consocket);
+  exit(0);
+}
 
 int			launch_server(t_serv *serv)
 {
@@ -45,10 +54,21 @@ static int		exec_command(int consocket, t_child *child)
 
 }
 
+static void		call_child_signal()
+{
+  signal(SIGINT, signalHandler);
+  signal(SIGABRT, signalHandler);
+  signal(SIGTERM, signalHandler);
+  signal(SIGSEGV, signalHandler);
+  signal(SIGQUIT, signalHandler);
+}
+
 int			child_exec(int consocket)
 {
   t_child		*child;
 
+  g_child_consocket = consocket;
+  call_child_signal();
   child = initialize_child();
   if (child == NULL)
     return throw_child_error(consocket);
