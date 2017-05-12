@@ -29,22 +29,25 @@ int			initializer_server(t_serv *server)
     return (-1);
   if (listen(server->mysocket, 1))
     return (-1);
-  server->child = NULL;
+  memset(server->child, 0, MAX_CONNECTION);
   server->nb_connections = 0;
   return (0);
 }
 
 int			initialize_process(int value, t_serv *serv)
 {
-  serv->nb_connections += 1;
-  serv->child = realloc(serv->child, serv->nb_connections);
-  serv->child[serv->nb_connections - 1] = fork();
-  if (serv->child[serv->nb_connections - 1] == -1)
+  int			cpt;
+
+  cpt = 0;
+  while (cpt < MAX_CONNECTION && serv->child[cpt] != 0)
+    ++cpt;
+  serv->child[cpt] = fork();
+  if (serv->child[cpt] == -1)
   {
     perror("fork");
     return (-1);
   }
-  if (serv->child[serv->nb_connections - 1] == 0)
+  if (serv->child[cpt] == 0)
     child_exec(value);
   return (0);
 }

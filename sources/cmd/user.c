@@ -8,7 +8,6 @@
 ** Last update Wed May 10 14:24:09 2017 Maxime PILLON
 */
 
-#include		<stdio.h>
 #include		<string.h>
 #include		"server.h"
 
