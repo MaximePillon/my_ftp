@@ -33,6 +33,7 @@ int			throw_child_error(int consocket);
 int			launch_server(t_serv *serv);
 int			child_exec(int consocket);
 void			respond(char *code, char *string, int consocket);
+int			quit_cmd(int consocket);
 
 /*
 ** initializer function

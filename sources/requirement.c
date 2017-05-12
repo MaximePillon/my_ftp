@@ -8,6 +8,7 @@
 ** Last update Thu May 11 09:07:40 2017 Maxime PILLON
 */
 
+#include	<unistd.h>
 #include	<string.h>
 #include 	"server.h"
 
@@ -24,4 +25,10 @@ bool		has_username(t_child *child)
   if (child->username)
     return true;
   return false;
+}
+
+int		quit_cmd(int consocket)
+{
+  close(consocket);
+  return (0);
 }

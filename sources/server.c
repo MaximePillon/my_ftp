@@ -66,6 +66,7 @@ static void		call_child_signal()
 int			child_exec(int consocket)
 {
   t_child		*child;
+  int			tmp;
 
   g_child_consocket = consocket;
   call_child_signal();
@@ -77,8 +78,11 @@ int			child_exec(int consocket)
   {
     if (read_command(consocket, child))
       return throw_child_error(consocket);
-    if (exec_command(consocket, child))
+    tmp = exec_command(consocket, child);
+    if (tmp == -1)
       return throw_child_error(consocket);
+    if (tmp == 1)
+      return quit_cmd(consocket);
   }
   return (0);
 }
