@@ -18,7 +18,7 @@ int			cdup(int consocket, t_child *child)
     respond("530", "Not logged in.", consocket);
     return (0);
   }
-  if (!chdir(".."))
+  if (chdir("..") == 0)
     respond("250", "Requested file action okay, completed.", consocket);
   else
     respond("550", "Requested action not taken.", consocket);
