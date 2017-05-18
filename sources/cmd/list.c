@@ -10,24 +10,35 @@
 
 #include		<sys/types.h>
 #include		<sys/wait.h>
+#include		<stdio.h>
 #include		<unistd.h>
+#include		<stdlib.h>
 #include		"server.h"
 
-static int		exec_ls(int consocket)
+static int		exec_ls(int consocket, t_child *child, int serv_socket)
 {
   int			status;
   int			pid;
-  char			*args[2];
+  char			*args[3];
 
   args[0] = "/bin/ls";
-  args[1] = NULL;
+  args[1] = "-l";
+  args[2] = NULL;
 
   pid = fork();
-  dup2(consocket, STDOUT_FILENO);
+  if (pid == -1)
+    return (-1);
   if (pid == 0)
+  {
+    dup2(consocket, STDOUT_FILENO);
     execv(args[0], args);
-  else
-    wait(&status);
+    exit(EXIT_SUCCESS);
+  }
+  respond("226", "Closing data connection.", serv_socket);
+  close(consocket);
+  free(child->data);
+  child->data = NULL;
+
   return (0);
 }
 
@@ -45,15 +56,15 @@ int			list(int consocket, t_child *child)
     respond("425", "425 Use PORT or PASV first.", consocket);
     return (0);
   }
-
+  respond("125", "Data connection already open; transfer starting.", consocket);
   if (child->mode == PASSIVE)
   {
     datasocket = accept(child->data->data_socket,
 			(struct sockaddr *) &(child->data->dest),
 			&(child->data->socksize));
-    return (exec_ls(datasocket));
+    return (exec_ls(datasocket, child, consocket));
   }
   connect(child->data->data_socket, (struct sockaddr*) &child->data->serv,
 	    child->data->socksize);
-  return (exec_ls(child->data->data_socket));
+  return (exec_ls(child->data->data_socket, child, consocket));
 }
