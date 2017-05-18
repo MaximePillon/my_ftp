@@ -17,7 +17,6 @@
 
 static int		exec_ls(int consocket, t_child *child, int serv_socket)
 {
-  int			status;
   int			pid;
   char			*args[3];
 
