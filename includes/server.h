@@ -42,6 +42,9 @@ int			initializer_server(t_serv *server);
 int			initialize_process(int value, t_serv *server);
 void			initialize_func_tab(t_child *child);
 t_child			*initialize_child();
+t_data			*data_connection_initializer();
+t_data			*data_active(t_address *address);
+
 
 /*
 ** Authentication & right function

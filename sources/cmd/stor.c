@@ -12,5 +12,15 @@
 
 int			stor(int consocket, t_child *child)
 {
+  if (!is_authenticated(child))
+  {
+    respond("530", "Not logged in.", consocket);
+    return (0);
+  }
+  if (child->mode == NONE)
+  {
+    respond("425", "425 Use PORT or PASV first.", consocket);
+    return (0);
+  }
   return (0);
 }

@@ -27,10 +27,6 @@ int			param_parsing(int ac, char **av, t_serv *serv)
 
 int			read_command(int consocket, t_child *child)
 {
-  size_t		len;
-  ssize_t		tmp;
-
-  len = 0;
   child->command = NULL;
   child->command = get_next_line(consocket);
   if (!child->command)

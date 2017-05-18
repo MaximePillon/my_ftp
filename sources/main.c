@@ -20,6 +20,7 @@ static void		signalHandler(int signum)
   int			cpt;
 
   cpt = 0;
+  printf("program has been interrupt by signal: %d\n", signum);
   while (cpt < MAX_CONNECTION)
   {
    if (g_serv->child[cpt] != 0)

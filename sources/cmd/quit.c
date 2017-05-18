@@ -12,6 +12,7 @@
 
 int			quit(int consocket, t_child *child)
 {
+  (void)child;
   respond("221", "Service closing control connection.", consocket);
   return (1);
 }

@@ -15,6 +15,46 @@
 #include		<netdb.h>
 #include		"server.h"
 
+t_data			*data_active(t_address *address)
+{
+  t_data		*transfer;
+  struct protoent *pe;
+
+  pe = getprotobyname("TCP");
+  if (!address)
+    return (NULL);
+  transfer = malloc(sizeof(t_data));
+  if (!transfer)
+    return (NULL);
+  transfer->socksize = sizeof(struct sockaddr_in);
+  transfer->data_socket = socket(AF_INET, SOCK_STREAM, pe->p_proto);
+  transfer->serv.sin_family = AF_INET;
+  transfer->serv.sin_port = htons((uint16_t)address->port);
+  transfer->serv.sin_addr.s_addr = inet_addr(address->addr);
+  return (transfer);
+}
+
+t_data			*data_connection_initializer()
+{
+  t_data		*transfer;
+
+  transfer = malloc(sizeof(t_data));
+  if (!transfer)
+    return (NULL);
+  transfer->socksize = sizeof(struct sockaddr_in);
+  transfer->serv.sin_family = AF_INET;
+  transfer->serv.sin_addr.s_addr = htonl(INADDR_ANY);
+  transfer->serv.sin_port = htons((uint16_t)DATA_CONNECTION_PORT);
+  transfer->data_socket = socket(AF_INET, SOCK_STREAM, getprotobyname("TCP")->p_proto);
+  if (transfer->data_socket == -1)
+    return (NULL);
+  if (bind(transfer->data_socket, (struct sockaddr *)&transfer->serv, sizeof(struct sockaddr)))
+    return (NULL);
+  if (listen(transfer->data_socket, 1))
+    return (NULL);
+  return (transfer);
+}
+
 int			initializer_server(t_serv *server)
 {
   server->socksize = sizeof(struct sockaddr_in);
@@ -62,5 +102,6 @@ t_child			*initialize_child()
   child->username = NULL;
   child->password = NULL;
   child->command = NULL;
+  child->mode = NONE;
   return (child);
 }

@@ -12,5 +12,7 @@
 
 int			noop(int consocket, t_child *child)
 {
+  (void)child;
+  respond("200", "Command okay.", consocket);
   return (0);
 }

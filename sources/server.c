@@ -20,7 +20,7 @@ int			g_child_consocket;
 static void		signalHandler(int signum)
 {
   close(g_child_consocket);
-  exit(0);
+  exit(signum);
 }
 
 int			launch_server(t_serv *serv)
@@ -39,6 +39,7 @@ int			launch_server(t_serv *serv)
       return (-1);
   }
   close(serv->mysocket);
+  return (0);
 }
 
 static int		exec_command(int consocket, t_child *child)

@@ -12,5 +12,8 @@
 
 int			smnt(int consocket, t_child *child)
 {
+  (void)child;
+  respond("202", "Command not implemented, superfluous at this site.",
+	  consocket);
   return (0);
 }

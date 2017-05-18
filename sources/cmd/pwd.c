@@ -20,6 +20,7 @@ int			pwd(int consocket, t_child *child)
   char buf[PATH_MAX];
   char *results;
 
+  (void)child;
   results = NULL;
   if (getcwd(buf, PATH_MAX) == NULL)
     return (-1);
