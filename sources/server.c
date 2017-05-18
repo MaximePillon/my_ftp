@@ -74,7 +74,7 @@ int			child_exec(int consocket)
   child = initialize_child();
   if (child == NULL)
     return throw_child_error(consocket);
-  write(consocket, "220\r\n", 5);
+  write(consocket, "220 Service ready for new user.\r\n", 32);
   while (consocket)
   {
     if (read_command(consocket, child))
