@@ -13,7 +13,6 @@
 int			sys_error(int consocket, t_child *child)
 {
   (void)child;
-  respond("202", "Command not implemented, superfluous at this site.",
-	  consocket);
+  respond("500", " Syntax error, command unrecognized.", consocket);
   return (0);
 }

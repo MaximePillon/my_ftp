@@ -18,13 +18,10 @@ int			pass(int consocket, t_child *child)
     respond("332", "Need account for login.",consocket);
     return (0);
   }
-  child->password = strdup((child->command + 5));
+  child->password = strdup(child->command + 5);
   if (!child->password)
-  {
-    //todo throw error and quit
     return (-1);
-  }
-  if (!strcmp(child->password, "\r\n"))
+  if (strlen(child->password) != 1)
   {
     respond("530", "Not logged in.", consocket);
     return (0);

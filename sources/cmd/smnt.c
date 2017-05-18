@@ -12,7 +12,11 @@
 
 int			smnt(int consocket, t_child *child)
 {
-  (void)child;
+  if (!is_authenticated(child))
+  {
+    respond("530", "Not logged in.", consocket);
+    return (0);
+  }
   respond("202", "Command not implemented, superfluous at this site.",
 	  consocket);
   return (0);

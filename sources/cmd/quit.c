@@ -12,7 +12,11 @@
 
 int			quit(int consocket, t_child *child)
 {
-  (void)child;
+  if (!is_authenticated(child))
+  {
+    respond("530", "Not logged in.", consocket);
+    return (0);
+  }
   respond("221", "Service closing control connection.", consocket);
   return (1);
 }
