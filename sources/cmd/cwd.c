@@ -24,7 +24,7 @@ int			cwd(int consocket, t_child *child)
     respond("501", "Syntax error in parameters or arguments.", consocket);
     return (0);
   }
-  child->command[strlen(child->command) - 1] = '\0';
+  clear_arg(child->command);
   if (chdir(child->command + 4) == 0)
     respond("250", "Requested file action okay, completed.", consocket);
   else

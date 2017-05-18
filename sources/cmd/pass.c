@@ -21,7 +21,8 @@ int			pass(int consocket, t_child *child)
   child->password = strdup(child->command + 5);
   if (!child->password)
     return (-1);
-  if (strlen(child->password) != 1)
+  clear_arg(child->password);
+  if (strlen(child->password) != 0)
   {
     respond("530", "Not logged in.", consocket);
     return (0);

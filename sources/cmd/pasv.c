@@ -9,6 +9,7 @@
 */
 
 #include		<stddef.h>
+#include <stdio.h>
 #include		"server.h"
 
 int			pasv(int consocket, t_child *child)
@@ -26,6 +27,7 @@ int			pasv(int consocket, t_child *child)
     return (0);
   }
   child->mode = PASSIVE;
-  respond("227", "Entering Passive Mode (127,0,0,1,164,17).", consocket);
+  dprintf(consocket, "227 Entering Passive Mode (127,0,0,1,%d,%d).\r\n",
+	  child->data->port / 256, child->data->port % 256);
   return (0);
 }

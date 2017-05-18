@@ -33,11 +33,12 @@ static int		exec_ls(int consocket, t_child *child, int serv_socket)
     execv(args[0], args);
     exit(EXIT_SUCCESS);
   }
+  else
+    waitpid(pid, 0, WSTOPPED);
   respond("226", "Closing data connection.", serv_socket);
   close(consocket);
   free(child->data);
   child->data = NULL;
-
   return (0);
 }
 

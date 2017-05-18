@@ -20,6 +20,7 @@
 int			param_parsing(int ac, char **av, t_serv *serv);
 int			read_command(int consocket, t_child *child);
 char			*get_next_line(int fd);
+void			clear_arg(char *str);
 
 /*
 ** Error management function

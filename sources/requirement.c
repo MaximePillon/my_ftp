@@ -27,6 +27,21 @@ bool		has_username(t_child *child)
   return false;
 }
 
+void		clear_arg(char *str)
+{
+  int		cpt;
+
+  if (!str)
+    return ;
+  cpt = 0;
+  while (str[cpt])
+  {
+    if (str[cpt] == '\r')
+      str[cpt] = '\0';
+    ++cpt;
+  }
+}
+
 int		quit_cmd(int consocket)
 {
   close(consocket);

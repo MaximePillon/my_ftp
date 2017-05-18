@@ -57,6 +57,7 @@ typedef struct		s_data
   struct sockaddr_in	dest;
   struct sockaddr_in	serv;
   socklen_t		socksize;
+  int			port;
 }			t_data;
 
 typedef struct		s_address

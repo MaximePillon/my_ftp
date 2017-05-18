@@ -39,12 +39,13 @@ t_data			*data_connection_initializer()
   t_data		*transfer;
 
   transfer = malloc(sizeof(t_data));
+  transfer->port = DATA_CONNECTION_PORT;
   if (!transfer)
     return (NULL);
   transfer->socksize = sizeof(struct sockaddr_in);
   transfer->serv.sin_family = AF_INET;
   transfer->serv.sin_addr.s_addr = htonl(INADDR_ANY);
-  transfer->serv.sin_port = htons((uint16_t)DATA_CONNECTION_PORT);
+  transfer->serv.sin_port = htons((uint16_t)transfer->port);
   transfer->data_socket = socket(AF_INET, SOCK_STREAM, getprotobyname("TCP")->p_proto);
   if (transfer->data_socket == -1)
     return (NULL);
