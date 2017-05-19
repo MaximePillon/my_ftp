@@ -10,8 +10,18 @@
 
 #include		"server.h"
 
+int			push_data(int consocket, t_child *child, int serv_socket)
+{
+  (void)consocket;
+  (void)child;
+  (void)serv_socket;
+  return (1);
+}
+
 int			retr(int consocket, t_child *child)
 {
+  int			datasocket;
+
   if (!is_authenticated(child))
   {
     respond("530", "Not logged in.", consocket);
@@ -22,5 +32,15 @@ int			retr(int consocket, t_child *child)
     respond("425", "425 Use PORT or PASV first.", consocket);
     return (0);
   }
-  return (0);
+  respond("150", "Data connection already open; transfer starting.", consocket);
+  if (child->mode == PASSIVE)
+  {
+    datasocket = accept(child->data->data_socket,
+			(struct sockaddr *) &(child->data->dest),
+			&(child->data->socksize));
+    return (push_data(datasocket, child, consocket));
+  }
+  connect(child->data->data_socket, (struct sockaddr*) &child->data->serv,
+	  child->data->socksize);
+  return (push_data(child->data->data_socket, child, consocket));
 }

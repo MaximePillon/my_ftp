@@ -8,16 +8,16 @@
 ** Last update Wed May 10 14:30:15 2017 Maxime PILLON
 */
 
+#include		<stdio.h>
 #include		"server.h"
 
 int			help(int consocket, t_child *child)
 {
-  if (!is_authenticated(child))
-  {
-    respond("530", "Not logged in.", consocket);
-    return (0);
-  }
-  respond("202", "Command not implemented, superfluous at this site.",
-	  consocket);
+  respond("21", "Help message.", consocket);
+  dprintf(consocket, " USER PASS CWD CDUP QUIT DELE\n");
+  dprintf(consocket, " PASV PORT HELP NOOP RETR STOR\n");
+  dprintf(consocket, " SMNT STOU RMD MKD LIST PWD SYST\r\n");
+  respond("21", "Help message.", consocket);
+  (void)child;
   return (0);
 }

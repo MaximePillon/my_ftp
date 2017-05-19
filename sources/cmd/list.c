@@ -56,7 +56,7 @@ int			list(int consocket, t_child *child)
     respond("425", "425 Use PORT or PASV first.", consocket);
     return (0);
   }
-  respond("125", "Data connection already open; transfer starting.", consocket);
+  respond("150", "Data connection already open; transfer starting.", consocket);
   if (child->mode == PASSIVE)
   {
     datasocket = accept(child->data->data_socket,
