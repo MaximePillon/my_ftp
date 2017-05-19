@@ -28,7 +28,12 @@ int			read_data(int consocket, t_child *child, int serv_socket, int file)
     if (size1 > 0)
       write(file, buf, (size_t)size);
     else
-      write(file, buf, ((size_t)size - 2));
+    {
+      if (buf[size - 2] == '\r' && buf[size - 1] == '\n')
+	write(file, buf, ((size_t) size - 2));
+      else
+	write(file, buf, (size_t)size);
+    }
     strncpy(buf, buf1, (size_t)size1);
     size = size1;
   }
