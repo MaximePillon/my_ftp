@@ -11,8 +11,8 @@
 #ifndef PSU_2016_MYFTP_SERVER_H
 # define PSU_2016_MYFTP_SERVER_H
 
-# include	<stdbool.h>
-# include	"define.h"
+# include		<stdbool.h>
+# include		"define.h"
 
 /*
 ** Parsing function
@@ -50,32 +50,32 @@ t_data			*data_active(t_address *address);
 /*
 ** Authentication & right function
 */
-bool		is_authenticated(t_child *child);
-bool		has_username(t_child *child);
+bool			is_authenticated(t_child *child);
+bool			has_username(t_child *child);
 
 /*
 ** Execution function
 */
-int			user(int consocket, t_child *child); //todo
-int			pass(int consocket, t_child *child); //todo
-int			cwd(int consocket, t_child *child);  //todo
-int			cdup(int consocket, t_child *child); //todo
-int			quit(int consocket, t_child *child); //todo
-int			dele(int consocket, t_child *child); //todo
-int			pasv(int consocket, t_child *child); //todo
-int			port(int consocket, t_child *child); //todo
-int			help(int consocket, t_child *child); //todo
-int			noop(int consocket, t_child *child); //todo
-int			retr(int consocket, t_child *child); //todo
-int			stor(int consocket, t_child *child); //todo
-int			smnt(int consocket, t_child *child); //todo
-int			stou(int consocket, t_child *child); //todo
-int			rmd(int consocket, t_child *child);  //todo
-int			mkd(int consocket, t_child *child);  //todo
-int			list(int consocket, t_child *child); //todo
-int			pwd(int consocket, t_child *child);  //todo
-int			syst(int consocket, t_child *child); //todo
-int			sys_error(int consocket, t_child *child); //todo
+int			user(int consocket, t_child *child);
+int			pass(int consocket, t_child *child);
+int			cwd(int consocket, t_child *child);
+int			cdup(int consocket, t_child *child);
+int			quit(int consocket, t_child *child);
+int			dele(int consocket, t_child *child);
+int			pasv(int consocket, t_child *child);
+int			port(int consocket, t_child *child);
+int			help(int consocket, t_child *child);
+int			noop(int consocket, t_child *child);
+int			retr(int consocket, t_child *child);
+int			stor(int consocket, t_child *child);
+int			smnt(int consocket, t_child *child);
+int			stou(int consocket, t_child *child);
+int			rmd(int consocket, t_child *child);
+int			mkd(int consocket, t_child *child);
+int			list(int consocket, t_child *child);
+int			pwd(int consocket, t_child *child);
+int			syst(int consocket, t_child *child);
+int			sys_error(int consocket, t_child *child);
 
 /*
 ** Global variable server, used to handle SIGINT, SIGPIP...

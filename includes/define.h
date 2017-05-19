@@ -28,7 +28,7 @@
 #  define		DATA_CONNECTION_PORT	(42001)
 # endif			/* !DATA_CONNECTION_PORT */
 
-enum e_mode
+enum			e_mode
 {
   NONE,
   ACTIVE,
@@ -49,7 +49,7 @@ typedef struct		s_serv
   socklen_t		socksize;
   size_t		nb_connections;
   int			child[MAX_CONNECTION];
-}		t_serv;
+}			t_serv;
 
 typedef struct		s_data
 {
@@ -75,10 +75,10 @@ typedef struct		s_child
   t_data		*data;
 }			t_child;
 
-typedef struct	s_func
+typedef struct		s_func
 {
-  const char	*keyword;
-  int		(*funcptr)(int, t_child *);
-}		t_func;
+  const char		*keyword;
+  int			(*funcptr)(int, t_child *);
+}			t_func;
 
 #endif /* !PSU_2016_MYFTP_FUNCTION_DEFINE_H */

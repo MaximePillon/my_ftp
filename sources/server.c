@@ -25,14 +25,15 @@ static void		signalHandler(int signum)
 
 int			launch_server(t_serv *serv)
 {
-  int value;
+  int			value;
 
   value = 1;
   if (initializer_server(serv))
     return (-1);
   if (chdir(serv->pathname))
     return throw_error("can't move to the wanted directory");
-  while (value) {
+  while (value)
+  {
     value = accept(serv->mysocket,
 		   (struct sockaddr *) &(serv->dest), &(serv->socksize));
     if (initialize_process(value, serv))
@@ -88,35 +89,3 @@ int			child_exec(int consocket)
   }
   return (0);
 }
-
-
-
-/*
- *
- *
- bind(mysocket, (struct sockaddr *)&serv, sizeof(struct sockaddr));
-
-  if (listen(mysocket, 1) == -1)
-    return (-1);
-
-  int consocket;
-  if ((consocket = accept(mysocket, (struct sockaddr *)&dest, &socksize)) == -1)
-    return 1;
-
-  while(consocket)
-  {
-    send(consocket, msg, strlen(msg), 0);
-    char buf[MAXRCVLEN + 1];
-    int len = recv(consocket, buf, MAXRCVLEN, 0);
-    if (len == -1)
-      return (1);
-    buf[len] = '\0';
-    printf("%s\n", buf);
-    close(consocket);
-    consocket = accept(mysocket, (struct sockaddr *)&dest, &socksize);
-  }
-  close(mysocket);
-  return EXIT_SUCCESS;
-}
- *
- */

@@ -20,12 +20,12 @@ int			pwd(int consocket, t_child *child)
   char buf[PATH_MAX];
   char *results;
 
+  (void)child;
   if (!is_authenticated(child))
   {
     respond("530", "Not logged in.", consocket);
     return (0);
   }
-  (void)child;
   results = NULL;
   if (getcwd(buf, PATH_MAX) == NULL)
     return (-1);

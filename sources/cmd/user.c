@@ -17,10 +17,7 @@ int			user(int consocket, t_child *child)
     respond("501", NULL, consocket);
   child->username = strdup((child->command + 5));
   if (!child->username)
-  {
-    //todo throw error and quit
     return (-1);
-  }
   if (!strcmp(child->username, "Anonymous"))
   {
     respond("332", NULL, consocket);

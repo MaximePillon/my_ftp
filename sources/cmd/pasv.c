@@ -9,7 +9,7 @@
 */
 
 #include		<stddef.h>
-#include <stdio.h>
+#include		<stdio.h>
 #include		"server.h"
 
 int			pasv(int consocket, t_child *child)
@@ -23,7 +23,8 @@ int			pasv(int consocket, t_child *child)
     child->data = data_connection_initializer();
   if (!child->data)
   {
-    respond("421", "Service not available, closing control connection.", consocket);
+    respond("421",
+	    "Service not available, closing control connection.", consocket);
     return (0);
   }
   child->mode = PASSIVE;

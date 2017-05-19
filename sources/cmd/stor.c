@@ -14,7 +14,8 @@
 #include		<fcntl.h>
 #include		"server.h"
 
-int			read_data(int consocket, t_child *child, int serv_socket, int file)
+int			read_data(int consocket, t_child *child,
+				     int serv_socket, int file)
 {
   char			buf[1024];
   char			buf1[1024];
@@ -41,7 +42,6 @@ int			read_data(int consocket, t_child *child, int serv_socket, int file)
   close(consocket);
   respond("226", "Closing data connection.", serv_socket);
   free(child->data);
-  child->data = NULL;
   return (0);
 }
 
@@ -85,5 +85,5 @@ int			stor(int consocket, t_child *child)
     respond("550", "Requested action not taken.", consocket);
     return (-1);
   }
-  return communication(consocket, child, file);
+  return (communication(consocket, child, file));
 }

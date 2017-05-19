@@ -16,15 +16,15 @@ bool		is_authenticated(t_child *child)
 {
   if (child->username)
     if (strcmp(child->username, "Anonymous") == 0 || child->password)
-      return true;
-  return false;
+      return (true);
+  return (false);
 }
 
 bool		has_username(t_child *child)
 {
   if (child->username)
-    return true;
-  return false;
+    return (true);
+  return (false);
 }
 
 void		clear_arg(char *str)

@@ -52,7 +52,8 @@ t_data			*data_connection_initializer()
     transfer->serv.sin_port = htons((uint16_t) transfer->port);
     transfer->data_socket = socket(AF_INET, SOCK_STREAM,
 				   getprotobyname("TCP")->p_proto);
-    if (bind(transfer->data_socket, (struct sockaddr *)&transfer->serv, sizeof(struct sockaddr)))
+    if (bind(transfer->data_socket,
+	     (struct sockaddr *)&transfer->serv, sizeof(struct sockaddr)))
       transfer->data_socket = -1;
   }
   if (transfer->port == 50000)
@@ -69,10 +70,12 @@ int			initializer_server(t_serv *server)
   server->serv.sin_family = AF_INET;
   server->serv.sin_addr.s_addr = htonl(INADDR_ANY);
   server->serv.sin_port = htons((uint16_t)server->port);
-  server->mysocket = socket(AF_INET, SOCK_STREAM, getprotobyname("TCP")->p_proto);
+  server->mysocket = socket(AF_INET,
+			    SOCK_STREAM, getprotobyname("TCP")->p_proto);
   if (server->mysocket == -1)
     return (-1);
-  if (bind(server->mysocket, (struct sockaddr *)&server->serv, sizeof(struct sockaddr)))
+  if (bind(server->mysocket,
+	   (struct sockaddr *)&server->serv, sizeof(struct sockaddr)))
     return (-1);
   if (listen(server->mysocket, 1))
     return (-1);

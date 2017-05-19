@@ -36,7 +36,7 @@ static char 		*copy_buffer_ret(const char *buf, char *str, int *ret)
 
   j = 0;
   (*ret)++;
-  while (buf[(*ret)] != '\0' && buf[(*ret)] != '\n' && buf[*ret - 1] == '\r')
+  while (buf[(*ret)] != '\0' && buf[(*ret)] != '\n' && buf[*ret - 1] != '\r')
     {
       str[j] = buf[(*ret)];
       (*ret)++;

@@ -14,7 +14,8 @@
 #include		<fcntl.h>
 #include		"server.h"
 
-int			push_data(int consocket, t_child *child, int serv_socket, int file)
+int			push_data(int consocket, t_child *child,
+				     int serv_socket, int file)
 {
   char			buf[1024];
   ssize_t		size;
@@ -71,5 +72,5 @@ int			retr(int consocket, t_child *child)
     respond("550", "Requested action not taken.", consocket);
     return (-1);
   }
-  return communication(consocket, child, file);
+  return (communication(consocket, child, file));
 }

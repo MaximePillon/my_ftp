@@ -23,7 +23,6 @@ static int		exec_ls(int consocket, t_child *child, int serv_socket)
   args[0] = "/bin/ls";
   args[1] = "-l";
   args[2] = NULL;
-
   pid = fork();
   if (pid == -1)
     return (-1);
@@ -53,7 +52,7 @@ int			list(int consocket, t_child *child)
   }
   if (child->mode == NONE)
   {
-    respond("425", "425 Use PORT or PASV first.", consocket);
+    respond("425", "Use PORT or PASV first.", consocket);
     return (0);
   }
   respond("150", "Data connection already open; transfer starting.", consocket);
