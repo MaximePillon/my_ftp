@@ -38,7 +38,6 @@ int			read_data(int consocket, t_child *child,
     strncpy(buf, buf1, (size_t)size1);
     size = size1;
   }
-  close(file);
   close(consocket);
   respond("226", "Closing data connection.", serv_socket);
   free(child->data);
@@ -85,5 +84,7 @@ int			stor(int consocket, t_child *child)
     respond("550", "Requested action not taken.", consocket);
     return (-1);
   }
-  return (communication(consocket, child, file));
+  communication(consocket, child, file);
+  close(file);
+  return (0);
 }

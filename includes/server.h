@@ -46,7 +46,6 @@ t_child			*initialize_child();
 t_data			*data_connection_initializer();
 t_data			*data_active(t_address *address);
 
-
 /*
 ** Authentication & right function
 */
